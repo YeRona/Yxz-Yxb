@@ -4,45 +4,41 @@ class Solution:
             return s
         t = ""
         s_len = len(s)
+        s_rev = []
         if s_len % 2:
             mid = (s_len - 1) // 2
-            flag = 1
-            for i in range(1, mid + 1):
-                if s[mid - i] != s[mid + i]:
-                    flag = 0
-                    break
-            if flag == 1:
+            s_list = list(s)
+            s_rev = s_list[::-1]
+            if s_rev[: mid] == s_list[: mid]:
                 return s
         else:
             mid = (s_len - 2) // 2
-            flag = 1
-            for i in range(mid + 1):
-                if s[mid - i] != s[mid + i + 1]:
-                    flag = 0
-                    break
-            if flag == 1:
+            s_list = list(s)
+            s_rev = s_list[::-1]    #make fun of the property of list
+            if s_rev[: mid + 1] == s_list[:mid + 1]:
                 return s
         for i in range(1, s_len + 1):
             t_len = s_len - i
             t += s[t_len]
             if t_len % 2:
                 mid = (t_len - 1) // 2
-                flag = 1
-                for m in range(1, mid + 1):
-                    if s[mid - m] != s[mid + m]:
-                        flag = 0
-                        break
-                if flag == 1:
-                    #print(t_len, mid, t)
+                s_list = list(s)
+                s_rev = s_list[t_len - 1: :-1]
+                if s_rev[: mid] == s_list[:mid]:
                     t += s
                     return t
             else:
                 mid = (t_len - 2) // 2
-                flag = 1
-                for m in range(mid + 1):
-                    if s[mid - m] != s[mid + m + 1]:
-                        flag = 0
-                        break
-                if flag == 1:
-                    t += s
+                s_list = list(s)
+                s_rev = s_list[t_len - 1::-1]
+                if mid == 0:           #consider the special case
+                    if s_list[0] == s_list[1]:
+                        t += s
+                        return t
+                    else:
+                        t += s[1]
+                        t += s
+                        return t
+                if s_rev[: mid + 1] == s_list[:mid + 1]:
+                    t += s 
                     return t
