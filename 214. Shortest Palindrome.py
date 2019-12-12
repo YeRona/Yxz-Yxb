@@ -1,3 +1,4 @@
+#first try: brutal solution
 class Solution:
     def shortestPalindrome(self, s: str) -> str:
         if len(s) < 2:
