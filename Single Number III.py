@@ -11,14 +11,12 @@ Output: [3,5]
 '''
 class Solution:
     def singleNumber(self, nums: List[int]) -> List[int]:
-        t = []
-        h = {}
+        re = set()
+        remo = set()
+
         for i in nums:
-            if i not in h:
-                h[i] = 1
+            if i not in remo:
+                remo.add(i)
             else:
-                h[i] = 2
-        for i in h:
-            if h[i] == 1:
-                t.append(i)
-        return t
+                re.add(i)
+        return remo - re
