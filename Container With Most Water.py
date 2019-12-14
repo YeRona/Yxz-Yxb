@@ -17,20 +17,13 @@ class Solution:
     def maxArea(self, height: List[int]) -> int:
         n = len(height)
         s = 0
-        if height[0] > height[n - 1]:
-            height = height[::-1]
-        for i in range(n):
-            s = max(s, (n - 1 - i) * min(height[n-1], height[i]))
-            if height[i] <= height[n-1]:
-                pass
+        j = n - 1
+        i = 0
+        while i < j:
+            if height[i] < height[j]:
+                s = max(s, (j - i) * height[i])
+                i += 1
             else:
-                right = height[n - 1]
-                for j in range(n - 2, i, -1):
-                    if height[j] > right:
-                        mi = min(height[j], height[i])
-                        right = height[j]
-                        if ((j - i) * mi > s):
-                            s = (j - i) * mi
-                        if height[i] <= right:
-                            break
+                s = max(s, (j - i) * height[j])
+                j -= 1
         return s
