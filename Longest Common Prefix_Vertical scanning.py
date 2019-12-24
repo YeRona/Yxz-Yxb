@@ -13,29 +13,15 @@ Input: ["dog","racecar","car"]
 Output: ""
 Explanation: There is no common prefix among the input strings.
 '''
-class Solution:
-    def longestCommonPrefix(self, strs: List[str]) -> str:
-        n = len(strs)
-        res = ""
-        if n == 0:
-            return res
-        elif n == 1:
-            return strs[0]
-        ma = len(strs[0])
-        for i in range(1, n):
-            ma = min(ma, len(strs[i]))
-        if ma == 0:
-            return res
-        m = 0
-        flag = 0
-        while m < ma:
-            ms = strs[0][m]
-            for i in range(1, n):
-                if strs[i][m] != ms:
-                    flag = 1
-                    break
-            if flag:
+class Solution:      
+    def longestCommonPrefix(self, strs):
+        prefix=""
+        if len(strs)==0: return prefix
+    
+        for i in range(len(min(strs))):
+            c=strs[0][i]
+            if all(a[i]==c for a in strs):
+                prefix+=c
+            else:
                 break
-            res += ms
-            m += 1
-        return res
+        return prefix
