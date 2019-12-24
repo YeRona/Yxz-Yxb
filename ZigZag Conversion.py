@@ -26,26 +26,18 @@ class Solution:
         leng = len(s)
         if leng < 3:
             return s
-        elif numRows == 1:
+        elif numRows < 2:
             return s
         elif leng <= numRows:
             return s
         t = ""
+        cycle = 2 * numRows - 2
         for i in range(numRows):
-            m = i
             if i == 0 or i == numRows - 1:
-                while m < leng:
-                    t += s[m]
-                    m += 2 * numRows - 2
+                t += s[i::cycle]
             else:
-                flag = 0      # first letter of the group
-                while m < leng:
-                    if flag == 0:
-                        t += s[m]
-                        m += 2 * numRows- 2 - 2 * i
-                        flag = 1
-                    else:
-                        t += s[m]
-                        m += 2 * i
-                        flag = 0
+                for j in range(i, leng, cycle):
+                    t += s[j]
+                    if j + cycle - 2 * i < leng:
+                        t += s[j + cycle- 2 * i]
         return t
